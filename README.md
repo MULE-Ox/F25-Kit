@@ -40,7 +40,7 @@ Occasionally, we will need individual MULE members to be able to create and chan
 
 https://cycling74.com/downloads
 
-You do not need a license to run files in **Max** for MULE. If you already have **Max** installed, make sure that it is updated to version **9.0.7** or higher.
+You do not need a license to run files in **Max** for MULE. If you already have **Max** installed, make sure that it is updated to version **9.0.8** or higher.
 
 ### File Preferences
 
