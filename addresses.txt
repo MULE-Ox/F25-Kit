@@ -13,4 +13,4 @@ Will Puchot 192.168.0.12
 Eric Rademacher 192.168.0.13
 Brandon Rengering 192.168.0.14
 Isa Riddle 192.168.0.15
-Zara Zitko 192.168.0.16
+Zara Zitko 192.168.0.16 - NO
