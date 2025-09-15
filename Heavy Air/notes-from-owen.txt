@@ -1,0 +1,6 @@
+
+We can use some synthesizers and/or acoustic instruments within the ensemble. For example, half the ensemble members are playing pitches while the other half play samples, then they swap halfway through.
+
+The specific octaves of the pitches are important, though performers can play with any dynamic level and rhythm, so long as there is a good balance between the samples and live performers.
+
+Playing vs. not playing a sound means starting vs. stopping the looping of the individual sample slices.
