@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/vision_bundle.js" type="module"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <video style="display: none;" autoplay playsinline></video>
+  <canvas width="640" height="480"></canvas>
+
+  <script type="module">
+    // Import the classes from the bundle
+    import {
+      FilesetResolver,
+      HandLandmarker
+    } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/vision_bundle.js";
+
+    const video = document.querySelector("video");
+    const canvas = document.querySelector("canvas");
+    const ctx = canvas.getContext("2d");
+
+    let handLandmarker;
+    let running = false;
+
+    async function init() {
+      const vision = await FilesetResolver.forVisionTasks(
+        "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/wasm"
+      );
+      handLandmarker = await HandLandmarker.createFromOptions(vision, {
+        baseOptions: {
+          modelAssetPath: "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/latest/hand_landmarker.task",
+          delegate: "GPU"
+        },
+        runningMode: "VIDEO",
+        numHands: 1
+      });
+
+      navigator.mediaDevices.getUserMedia({
+        video: {
+          width: 640,
+          height: 480
+        }
+      }).then((stream) => {
+        video.srcObject = stream;
+        video.onloadedmetadata = () => {
+          video.play();
+          running = true;
+          requestAnimationFrame(predict);
+        };
+      });
+    }
+
+    async function predict() {
+      if (!running) return;
+      ctx.save();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.translate(canvas.width, 0);
+      ctx.scale(-1, 1);
+
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      if (handLandmarker && video.readyState === 4) {
+        const results = handLandmarker.detectForVideo(video, performance.now());
+        if (results.landmarks.length) {
+          const hand = results.landmarks[0];
+          const wrist = hand[0];
+          const mid = hand[9];
+          const wristX = wrist.x * canvas.width;
+          const wristY = wrist.y * canvas.height;
+          const midX = mid.x * canvas.width;
+          const midY = mid.y * canvas.height;
+          const dx = wristX - midX;
+          const dy = wristY - midY;
+          const rawDistance = Math.sqrt(dx * dx + dy * dy) / 2;
+          const clampedDistance = Math.max(60, Math.min(150, rawDistance));
+          const sqrtTransformed = Math.sqrt((clampedDistance - 60) / 90);
+          if (window.max) window.max.outlet(sqrtTransformed);
+          const xAvg = (wristX + midX) / 2;
+          const yAvg = (wristY + midY) / 2;
+          ctx.beginPath();
+          ctx.arc(xAvg, yAvg, clampedDistance, 0, 2 * Math.PI);
+          ctx.fillStyle = "blue";
+          ctx.fill();
+        }
+      }
+      ctx.restore();
+      requestAnimationFrame(predict);
+    }
+
+    init();
+  </script>
+
+</body>
+
+</html>
