@@ -60,6 +60,10 @@
       });
     }
 
+    let lastDist = 0;
+    let lastCentX = 0;
+    let lastCentY = 0;
+
     async function predict() {
       if (!running) return;
       ctx.save();
@@ -76,23 +80,49 @@
           const hand = results.landmarks[0];
           const wrist = hand[0];
           const mid = hand[9];
-          const wristX = wrist.x * canvas.width;
-          const wristY = wrist.y * canvas.height;
-          const midX = mid.x * canvas.width;
-          const midY = mid.y * canvas.height;
-          const dx = wristX - midX;
-          const dy = wristY - midY;
-          const rawDistance = Math.sqrt(dx * dx + dy * dy) / 2;
-          const clampedDistance = Math.max(60, Math.min(150, rawDistance));
-          const sqrtTransformed = Math.sqrt((clampedDistance - 60) / 90);
-          if (window.max) window.max.outlet(sqrtTransformed);
-          const xAvg = (wristX + midX) / 2;
-          const yAvg = (wristY + midY) / 2;
+
+          const dX = wrist.x - mid.x;
+          const dY = wrist.y - mid.y;
+          const rawDist = Math.sqrt(dX * dX + dY * dY);
+          const smoothDist = rawDist * 0.5 + lastDist * 0.5;
+          const clipDist = Math.max(0.2, Math.min(0.6, smoothDist));
+          const scaleDist = (clipDist - 0.2) / 0.4;
+          const linearDist = Math.pow(scaleDist, 0.5);
+          lastDist = smoothDist;
+
+          const rawCentX = (wrist.x + mid.x) / 2;
+          const smoothCentX = rawCentX * 0.5 + lastCentX * 0.5;
+          const clipCentX = Math.max(0.2, Math.min(0.8, smoothCentX));
+          const scaleCentX = (clipCentX - 0.2) / 0.6;
+          lastCentX = smoothCentX;
+
+          const rawCentY = (wrist.y + mid.y) / 2;
+          const smoothCentY = rawCentY * 0.5 + lastCentY * 0.5;
+          const clipCentY = Math.max(0.2, Math.min(0.8, smoothCentY));
+          const scaleCentY = (clipCentY - 0.2) / 0.6;
+          lastCentY = smoothCentY;
+
+          if (window.max) window.max.outlet(linearDist, Math.abs(scaleCentX - 1), scaleCentY);
+
+          const x = smoothCentX * canvas.width;
+          const y = smoothCentY * canvas.height;
+          const d = clipDist * canvas.width * 0.3;
+
           ctx.beginPath();
-          ctx.arc(xAvg, yAvg, clampedDistance, 0, 2 * Math.PI);
+          ctx.arc(x, y, d, 0, 2 * Math.PI);
           ctx.fillStyle = "blue";
           ctx.fill();
+
+          ctx.beginPath();
+          ctx.arc(clipCentX * canvas.width, clipCentY * canvas.height, 8, 0, 2 * Math.PI);
+          ctx.fillStyle = "red";
+          ctx.fill();
         }
+        ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+        ctx.fillRect(0, 0, canvas.width * 0.2, canvas.height);
+        ctx.fillRect(canvas.width * 0.8, 0, canvas.width * 0.2, canvas.height);
+        ctx.fillRect(canvas.width * 0.2, 0, canvas.width * 0.6, canvas.height * 0.2);
+        ctx.fillRect(canvas.width * 0.2, canvas.height * 0.8, canvas.width * 0.6, canvas.height * 0.2);
       }
       ctx.restore();
       requestAnimationFrame(predict);
