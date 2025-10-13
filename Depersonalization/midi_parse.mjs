@@ -1,8 +1,16 @@
-import { readdir, readFile } from 'fs/promises';
+import { mkdir, readdir, readFile } from 'fs/promises';
+import { existsSync } from 'fs';
+
 import * as Max from 'max-api';
 import * as midiManager from 'midi-file';
 
-const fileNames = await readdir('./midi_files');
+const midiFolder = '../storage/depersonalization_midi';
+
+if (!existsSync(midiFolder)) {
+  await mkdir(midiFolder, { recursive: true });
+}
+
+const fileNames = await readdir(midiFolder);
 const midiFileNames = fileNames.filter((file) => file != '.DS_Store');
 
 for (const [i, file] of midiFileNames.entries()) {
