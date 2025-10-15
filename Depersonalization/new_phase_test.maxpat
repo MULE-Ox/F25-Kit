@@ -278,7 +278,7 @@
 							"pluginname" : "Splice INSTRUMENT.vst3info",
 							"plugindisplayname" : "Splice INSTRUMENT",
 							"pluginsavedname" : "",
-							"pluginsaveduniqueid" : 0,
+							"pluginsaveduniqueid" : 47217100,
 							"version" : 1,
 							"isbank" : 0,
 							"isbase64" : 1,
@@ -300,7 +300,7 @@
 										"pluginname" : "Splice INSTRUMENT.vst3info",
 										"plugindisplayname" : "Splice INSTRUMENT",
 										"pluginsavedname" : "",
-										"pluginsaveduniqueid" : 0,
+										"pluginsaveduniqueid" : 47217100,
 										"version" : 1,
 										"isbank" : 0,
 										"isbase64" : 1,
@@ -1132,8 +1132,6 @@
 					"saved_object_attributes" : 					{
 						"autostart" : 1,
 						"defer" : 0,
-						"node_bin_path" : "",
-						"npm_bin_path" : "",
 						"watch" : 0
 					}
 ,
@@ -1225,7 +1223,7 @@
 				"box" : 				{
 					"id" : "obj-32",
 					"maxclass" : "number",
-					"maximum" : 16,
+					"maximum" : 64,
 					"minimum" : 2,
 					"numinlets" : 1,
 					"numoutlets" : 2,
