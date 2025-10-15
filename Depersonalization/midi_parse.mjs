@@ -15,7 +15,9 @@ const midiFileNames = fileNames.filter((file) => file != '.DS_Store');
 
 for (const [i, file] of midiFileNames.entries()) {
   try {
-    const midiFile = await readFile(`./midi_files/${file}`);
+    const midiFile = await readFile(
+      `../storage/depersonalization_midi/${file}`
+    );
     const parsedMidi = midiManager.parseMidi(midiFile);
     const buffer = parsedMidi.tracks[0];
 
