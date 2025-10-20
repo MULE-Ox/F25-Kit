@@ -15,6 +15,18 @@
 		"gridsize" : [ 15.0, 15.0 ],
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-28",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 526.0, 475.0, 50.0, 22.0 ],
+					"text" : "17"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-121",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -1097,7 +1109,7 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-27",
-					"items" : [ " --- ", ",", "1_C_Major.mid", ",", "2_C_Harmonic_Minor.mid", ",", "3_C_Whole_Tone.mid", ",", "4_Piano_Phase.mid" ],
+					"items" : [ " --- ", ",", "1_C_Major.mid", ",", "2_C_Harmonic_Minor.mid", ",", "3_C_Whole_Tone.mid", ",", "4_Piano_Phase.mid", ",", "Grow_Up_Bar1Simp_4.mid", ",", "Grow_Up_Bar1_4.mid", ",", "Grow_Up_Bar2Simp_4.mid", ",", "Grow_Up_Bar2_4.mid", ",", "Grow_Up_Bar3Simp_4.mid", ",", "Grow_Up_Bar3_4.mid", ",", "Grow_Up_Bar4Simp_4.mid", ",", "Grow_Up_Bar4_4.mid", ",", "Grow_Up_Half_Spd_32.mid", ",", "Grow_Up_Qtr_Spd_64.mid", ",", "Grow_Up_Reg_Spd_16.mid", ",", "Grow_Up_Will_1_16.mid", ",", "Grow_Up_Will_2_16.mid" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1132,6 +1144,8 @@
 					"saved_object_attributes" : 					{
 						"autostart" : 1,
 						"defer" : 0,
+						"node_bin_path" : "",
+						"npm_bin_path" : "",
 						"watch" : 0
 					}
 ,
@@ -1509,8 +1523,16 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-28", 1 ],
+					"order" : 0,
+					"source" : [ "obj-27", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-33", 0 ],
-					"order" : 1,
+					"order" : 2,
 					"source" : [ "obj-27", 0 ]
 				}
 
@@ -1518,7 +1540,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-61", 0 ],
-					"order" : 0,
+					"order" : 1,
 					"source" : [ "obj-27", 0 ]
 				}
 

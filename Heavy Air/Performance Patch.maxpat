@@ -10,10 +10,67 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 102.0, 974.0, 655.0 ],
+		"rect" : [ 34.0, 76.0, 974.0, 681.0 ],
 		"openinpresentation" : 1,
 		"gridsize" : [ 15.0, 15.0 ],
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontface" : 1,
+					"fontsize" : 14.0,
+					"id" : "obj-58",
+					"linecount" : 30,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 340.0, 715.0, 140.0, 476.0 ],
+					"presentation" : 1,
+					"presentation_linecount" : 8,
+					"presentation_rect" : [ 8.0, 653.5, 630.0, 132.0 ],
+					"text" : "Section 1: Slowly add in layers from silence. Build until a \"constant wash of sound is established,\" but not necessaily LOUD.\n\nTransition: All electronics (except Nash) end ABRUPTLY at 3:30.\nInstrumentalists crossfade with each other. This should last approximately 0:30.\n\nSection 2: As in the beginning, slowly add in layers. However, this time, reverse the process halfway through, slowly dispersing and fading away to nothing (around 8:00)."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-57",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 1197.0, 683.5, 58.0, 22.0 ],
+					"text" : "loadbang"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-56",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 1193.5, 722.0, 163.0, 22.0 ],
+					"text" : "readfile Heavy_Air_notes.pdf"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"disablefind" : 0,
+					"id" : "obj-50",
+					"maxclass" : "jweb",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 1194.0, 776.0, 627.0, 331.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 640.0, 322.0, 799.0, 479.0 ],
+					"rendermode" : 0,
+					"url" : "file://Heavy_Air_notes.pdf"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-53",
 					"maxclass" : "newobj",
@@ -143,7 +200,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 821.0, 338.0, 211.0, 24.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 742.0, 335.0, 211.0, 24.0 ],
+					"presentation_rect" : [ 709.0, 283.0, 211.0, 24.0 ],
 					"text" : "Freely play with volumes "
 				}
 
@@ -160,7 +217,7 @@
 					"patching_rect" : [ 1259.0, 481.0, 169.0, 86.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 5,
-					"presentation_rect" : [ 1173.5, 446.5, 169.0, 86.0 ],
+					"presentation_rect" : [ 723.0, 166.0, 169.0, 86.0 ],
 					"text" : "Space bar engages mouse interation with filter frequencies. Pressing the space bar again turns that off"
 				}
 
@@ -174,10 +231,10 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 114.0, 560.0, 181.0, 214.0 ],
+					"patching_rect" : [ 114.0, 560.0, 185.0, 214.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 13,
-					"presentation_rect" : [ 7.5, 67.5, 181.0, 214.0 ],
+					"presentation_rect" : [ 7.5, 67.5, 185.0, 214.0 ],
 					"text" : "Setup: \n-You will need to download the fluid corpus extension from the package manager. \n- Make sure your file directory has the correct folder link to access and playback the audio files (you might have to change this. \n- Press the following bangs in oder. "
 				}
 
@@ -192,7 +249,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 850.0, 79.0, 224.0, 26.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 747.0, 40.0, 224.0, 26.0 ],
+					"presentation_rect" : [ 715.0, 10.0, 224.0, 26.0 ],
 					"text" : "Playback - Start here"
 				}
 
@@ -207,7 +264,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 1022.0, 81.0, 217.0, 26.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1043.5, 40.0, 217.0, 26.0 ],
+					"presentation_rect" : [ 1012.0, 10.0, 217.0, 26.0 ],
 					"text" : "Filterbank"
 				}
 
@@ -1471,7 +1528,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 1324.0, 198.0, 152.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1053.5, 188.0, 152.0, 20.0 ],
+					"presentation_rect" : [ 1021.0, 136.0, 152.0, 20.0 ],
 					"text" : "Filter Frquencies "
 				}
 
@@ -1488,7 +1545,7 @@
 					"patching_rect" : [ 1356.0, 184.0, 180.0, 42.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
-					"presentation_rect" : [ 1249.0, 111.0, 52.0, 42.0 ],
+					"presentation_rect" : [ 1217.0, 81.0, 52.0, 42.0 ],
 					"text" : "Left \nRight"
 				}
 
@@ -1503,7 +1560,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 1130.0, 75.0, 159.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1060.5, 73.0, 159.0, 20.0 ],
+					"presentation_rect" : [ 1029.0, 43.0, 159.0, 20.0 ],
 					"text" : "Matrix Routing"
 				}
 
@@ -1520,7 +1577,7 @@
 					"patching_rect" : [ 951.0, 127.0, 155.0, 48.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 3,
-					"presentation_rect" : [ 810.0, 90.0, 132.0, 48.0 ],
+					"presentation_rect" : [ 778.0, 60.0, 135.0, 48.0 ],
 					"text" : "Choose File (1-10) by typing number in and pressing enter"
 				}
 
@@ -1537,7 +1594,7 @@
 					"parameter_enable" : 1,
 					"patching_rect" : [ 576.0, 667.0, 136.0, 47.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 747.0, 493.5, 157.0, 47.0 ],
+					"presentation_rect" : [ 210.0, 604.5, 157.0, 47.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_longname" : "live.gain~[2]",
@@ -1685,7 +1742,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 576.0, 112.0, 50.0, 22.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 747.0, 105.0, 50.0, 22.0 ]
+					"presentation_rect" : [ 715.0, 75.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -1712,7 +1769,7 @@
 					"outlettype" : [ "", "int" ],
 					"patching_rect" : [ 666.0, 358.0, 196.0, 21.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 747.0, 145.0, 196.0, 21.0 ]
+					"presentation_rect" : [ 715.0, 115.0, 196.0, 21.0 ]
 				}
 
 			}
@@ -2974,7 +3031,7 @@
 					"parameter_enable" : 1,
 					"patching_rect" : [ 836.0, 671.0, 136.0, 47.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 994.0, 493.5, 136.0, 47.0 ],
+					"presentation_rect" : [ 457.0, 604.5, 136.0, 47.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_longname" : "live.gain~[1]",
@@ -3003,7 +3060,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 1611.5, 364.0, 20.0, 140.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1349.5, 225.0, 20.0, 140.0 ],
+					"presentation_rect" : [ 1317.0, 173.0, 20.0, 140.0 ],
 					"size" : 1.0
 				}
 
@@ -3019,7 +3076,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 1549.5, 364.0, 20.0, 140.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1310.5, 225.0, 20.0, 140.0 ],
+					"presentation_rect" : [ 1278.0, 173.0, 20.0, 140.0 ],
 					"size" : 1.0
 				}
 
@@ -3035,7 +3092,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 1493.5, 364.0, 20.0, 140.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1271.0, 225.0, 20.0, 140.0 ],
+					"presentation_rect" : [ 1238.0, 173.0, 20.0, 140.0 ],
 					"size" : 1.0
 				}
 
@@ -3051,7 +3108,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 1441.5, 364.0, 20.0, 140.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1228.5, 225.0, 20.0, 140.0 ],
+					"presentation_rect" : [ 1196.0, 173.0, 20.0, 140.0 ],
 					"size" : 1.0
 				}
 
@@ -3067,7 +3124,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 1400.5, 364.0, 20.0, 140.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1190.5, 225.0, 20.0, 140.0 ],
+					"presentation_rect" : [ 1158.0, 173.0, 20.0, 140.0 ],
 					"size" : 1.0
 				}
 
@@ -3083,7 +3140,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 1365.5, 364.0, 20.0, 140.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1154.5, 225.0, 20.0, 140.0 ],
+					"presentation_rect" : [ 1122.0, 173.0, 20.0, 140.0 ],
 					"size" : 1.0
 				}
 
@@ -3099,7 +3156,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 836.0, 423.0, 246.0, 58.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 995.5, 105.0, 246.0, 58.0 ],
+					"presentation_rect" : [ 964.0, 75.0, 246.0, 58.0 ],
 					"rows" : 2
 				}
 
@@ -3115,7 +3172,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 1335.5, 364.0, 20.0, 140.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1118.5, 225.0, 20.0, 140.0 ],
+					"presentation_rect" : [ 1086.0, 173.0, 20.0, 140.0 ],
 					"size" : 1.0
 				}
 
@@ -3131,7 +3188,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 1296.5, 364.0, 20.0, 140.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1079.5, 225.0, 20.0, 140.0 ],
+					"presentation_rect" : [ 1047.0, 173.0, 20.0, 140.0 ],
 					"size" : 1.0
 				}
 
@@ -3147,7 +3204,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 1254.0, 364.0, 20.0, 140.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1037.0, 225.0, 20.0, 140.0 ],
+					"presentation_rect" : [ 1004.0, 173.0, 20.0, 140.0 ],
 					"size" : 1.0
 				}
 
@@ -3175,7 +3232,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 1211.0, 364.0, 20.0, 140.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 994.0, 225.0, 20.0, 140.0 ],
+					"presentation_rect" : [ 961.0, 173.0, 20.0, 140.0 ],
 					"size" : 1.0
 				}
 
@@ -3278,7 +3335,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 325.0, 550.0, 153.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 640.0, 335.0, 62.0, 20.0 ],
+					"presentation_rect" : [ 640.0, 170.5, 62.0, 20.0 ],
 					"text" : "Explore!"
 				}
 
@@ -4350,6 +4407,20 @@
 				"patchline" : 				{
 					"destination" : [ "obj-52", 0 ],
 					"source" : [ "obj-53", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-50", 0 ],
+					"source" : [ "obj-56", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-56", 0 ],
+					"source" : [ "obj-57", 0 ]
 				}
 
 			}
