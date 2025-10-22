@@ -4,22 +4,28 @@ import { existsSync } from 'fs';
 import * as Max from 'max-api';
 import * as midiManager from 'midi-file';
 
-const midiFolderStorage = '../storage/depersonalization_midi';
+Max.outlet('seq', 'clear');
+
 const midiFolderGithub = './midi_files';
+const midiFolderStorage = '../storage/depersonalization_midi';
 
 if (!existsSync(midiFolderStorage)) {
   await mkdir(midiFolderStorage, { recursive: true });
 }
 
-const fileNames1 = await readdir(midiFolderStorage);
-const fileNames2 = await readdir(midiFolderGithub);
+const fileNamesGithub = await readdir(midiFolderGithub);
+const fileNamesStorage = await readdir(midiFolderStorage);
 
-const midiFileNames1 = fileNames1.filter((file) => file != '.DS_Store');
-const midiFileNames2 = fileNames2.filter((file) => file != '.DS_Store');
+const midiFileNamesGithub = fileNamesGithub.filter(
+  (file) => file != '.DS_Store'
+);
+const midiFileNamesStorage = fileNamesStorage.filter(
+  (file) => file != '.DS_Store'
+);
 
-for (const [i, file] of midiFileNames1.entries()) {
+for (const [i, file] of midiFileNamesGithub.entries()) {
   try {
-    const midiFile = await readFile(`${midiFolderStorage}/${file}`);
+    const midiFile = await readFile(`${midiFolderGithub}/${file}`);
     const parsedMidi = midiManager.parseMidi(midiFile);
     const buffer = parsedMidi.tracks[0];
 
@@ -41,11 +47,17 @@ for (const [i, file] of midiFileNames1.entries()) {
   }
 }
 
-const offset = midiFileNames1.length;
+Max.outlet('umenu', 'clear');
+Max.outlet('umenu', 'append', ' --- ');
+midiFileNamesGithub.forEach((item) => {
+  Max.outlet('umenu', 'append', item);
+});
 
-for (const [i, file] of midiFileNames2.entries()) {
+const offset = midiFileNamesGithub.length;
+
+for (const [i, file] of midiFileNamesStorage.entries()) {
   try {
-    const midiFile = await readFile(`${midiFolderGithub}/${file}`);
+    const midiFile = await readFile(`${midiFolderStorage}/${file}`);
     const parsedMidi = midiManager.parseMidi(midiFile);
     const buffer = parsedMidi.tracks[0];
 
@@ -74,9 +86,6 @@ for (const [i, file] of midiFileNames2.entries()) {
   }
 }
 
-Max.outlet('umenu', 'clear');
-Max.outlet('umenu', 'append', ' --- ');
-const allNames = [...midiFileNames1, ...midiFileNames2];
-allNames.forEach((item) => {
+midiFileNamesStorage.forEach((item) => {
   Max.outlet('umenu', 'append', item);
 });
