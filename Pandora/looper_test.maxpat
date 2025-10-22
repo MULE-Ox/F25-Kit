@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 85.0, 115.0, 1218.0, 751.0 ],
+		"rect" : [ 85.0, 115.0, 1015.0, 751.0 ],
 		"openinpresentation" : 1,
 		"gridsize" : [ 15.0, 15.0 ],
 		"boxes" : [ 			{
@@ -36,7 +36,7 @@
 					"patching_rect" : [ 919.0, 677.0, 40.0, 40.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 179.5, 573.0, 40.0, 40.0 ],
-					"size" : 3000.0
+					"size" : 1000.0
 				}
 
 			}
@@ -63,7 +63,7 @@
 					"patching_rect" : [ 831.0, 677.0, 40.0, 40.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 96.5, 573.0, 40.0, 40.0 ],
-					"size" : 3000.0
+					"size" : 1000.0
 				}
 
 			}
@@ -90,7 +90,7 @@
 					"patching_rect" : [ 755.0, 677.0, 40.0, 40.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 26.5, 573.0, 40.0, 40.0 ],
-					"size" : 3000.0
+					"size" : 1000.0
 				}
 
 			}
@@ -451,8 +451,6 @@
 					"saved_object_attributes" : 					{
 						"autostart" : 1,
 						"defer" : 0,
-						"node_bin_path" : "",
-						"npm_bin_path" : "",
 						"watch" : 0
 					}
 ,
