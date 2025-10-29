@@ -70,60 +70,78 @@
 
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-      const data = [0, 0, 0];
-
       if (handLandmarker && video.readyState === 4) {
         const results = handLandmarker.detectForVideo(video, performance.now());
-        if (results.landmarks) {
-          const pinchPositions = [];
-          let bothPinched = results.landmarks.length > 0;
-          for (const hand of results.landmarks) {
-            const indexTip = hand[8];
-            const thumbTip = hand[4];
-            const midPointX = (indexTip.x + thumbTip.x) / 2;
-            const midPointY = (indexTip.y + thumbTip.y) / 2;
-            const pinchX = indexTip.x - thumbTip.x;
-            const pinchY = indexTip.y - thumbTip.y;
-            const pDistance = Math.sqrt(pinchX * pinchX + pinchY * pinchY);
-
-            const pinched = pDistance < 0.1;
-            ctx.beginPath();
-            ctx.arc(midPointX * canvas.width, midPointY * canvas.height, 10, 0, 2 * Math.PI);
-            ctx.fillStyle = pinched ? "red" : "blue";
-            ctx.fill();
-
-            pinchPositions.push({
-              x: midPointX,
-              y: midPointY,
-            });
-
-            if (!pinched) {
-              bothPinched = false;
+        const pinchCenters = [];
+        const points = [];
+        if (results.landmarks.length > 0) {
+          for (let result of results.landmarks) {
+            const thumb = result[4]
+            const index = result[8];
+            const pinchDistance = Math.hypot(thumb.x - index.x, thumb.y - index.y);
+            let pinched = false;
+            if (pinchDistance < 0.08) {
+              thumb.fillStyle = 'green';
+              index.fillStyle = 'green';
+              pinched = true;
+            } else {
+              thumb.fillStyle = 'red';
+              index.fillStyle = 'red';
             }
+            const xAvg = (thumb.x + index.x) / 2;
+            const yAvg = (thumb.y + index.y) / 2;
+            const pinchCenter = {
+              xAvg,
+              yAvg,
+              pinched
+            };
+            pinchCenters.push(pinchCenter);
+            points.push(thumb);
+            points.push(index);
           }
-          if (pinchPositions.length === 2) {
+          if (pinchCenters.length === 2) {
+            const x1 = pinchCenters[0].xAvg * canvas.width;
+            const y1 = pinchCenters[0].yAvg * canvas.height;
+            const x2 = pinchCenters[1].xAvg * canvas.width;
+            const y2 = pinchCenters[1].yAvg * canvas.height;
+            const distance = Math.hypot(pinchCenters[0].xAvg - pinchCenters[1].xAvg, pinchCenters[0].yAvg -
+              pinchCenters[1].yAvg);
+            const dx = x2 - x1;
+            const dy = y2 - y1;
+            const angle = Math.abs(Math.atan2(dy, dx) / Math.PI);
+            const centerX = (x1 + x2) / 2;
+            const centerY = (y1 + y2) / 2;
+            const amplitude = Math.abs(1 - (pinchCenters[0].yAvg + pinchCenters[1].yAvg) / 2);
+            if (pinchCenters[0].pinched && pinchCenters[1].pinched) {
+              ctx.strokeStyle = `rgba(0,${255*amplitude},0,0.7)`;
+              if (window.max) window.max.outlet('gate', 1);
+            } else {
+              ctx.strokeStyle = `rgba(${255*amplitude},0,0,0.7)`;
+              if (window.max) window.max.outlet('gate', 0);
+            }
             ctx.beginPath();
-            ctx.moveTo(pinchPositions[0].x * canvas.width, pinchPositions[0].y * canvas.height);
-            ctx.lineTo(pinchPositions[1].x * canvas.width, pinchPositions[1].y * canvas.height);
-            ctx.strokeStyle = "yellow";
-            ctx.lineWidth = 3;
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.lineWidth = 20;
             ctx.stroke();
-
-            const dx = pinchPositions[0].x - pinchPositions[1].x;
-            const dy = pinchPositions[0].y - pinchPositions[1].y;
-            const handsDistance = Math.sqrt(dx * dx + dy * dy);
-            const handsHeight = (pinchPositions[0].y + pinchPositions[1].y) / 2;
-
-            data[0] = handsDistance;
-            data[1] = handsHeight;
+            if (window.max) {
+              window.max.outlet('distance', distance);
+              window.max.outlet('amplitude', amplitude);
+              window.max.outlet('angle', angle);
+            }
+          } else {
+            if (window.max) window.max.outlet('gate', 0);
           }
-          data[2] = bothPinched ? 1 : 0;
+          for (let point of points) {
+            const x = point.x * canvas.width;
+            const y = point.y * canvas.height;
+            ctx.beginPath();
+            ctx.arc(x, y, 8, 0, 2 * Math.PI);
+            ctx.fillStyle = point.fillStyle;
+            ctx.fill();
+          }
         }
-      } else {
-        data[2] = 0;
       }
-      if (window.max) window.max.outlet(data[0], data[1], data[2]);
-
       ctx.restore();
       requestAnimationFrame(predict);
     }
