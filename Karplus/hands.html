@@ -67,81 +67,110 @@
 
       ctx.translate(canvas.width, 0);
       ctx.scale(-1, 1);
-
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-      if (handLandmarker && video.readyState === 4) {
-        const results = handLandmarker.detectForVideo(video, performance.now());
-        const pinchCenters = [];
-        const points = [];
-        if (results.landmarks.length > 0) {
-          for (let result of results.landmarks) {
-            const thumb = result[4]
-            const index = result[8];
-            const pinchDistance = Math.hypot(thumb.x - index.x, thumb.y - index.y);
-            let pinched = false;
-            if (pinchDistance < 0.08) {
-              thumb.fillStyle = 'green';
-              index.fillStyle = 'green';
-              pinched = true;
-            } else {
-              thumb.fillStyle = 'red';
-              index.fillStyle = 'red';
-            }
-            const xAvg = (thumb.x + index.x) / 2;
-            const yAvg = (thumb.y + index.y) / 2;
-            const pinchCenter = {
-              xAvg,
-              yAvg,
-              pinched
-            };
-            pinchCenters.push(pinchCenter);
-            points.push(thumb);
-            points.push(index);
-          }
-          if (pinchCenters.length === 2) {
-            const x1 = pinchCenters[0].xAvg * canvas.width;
-            const y1 = pinchCenters[0].yAvg * canvas.height;
-            const x2 = pinchCenters[1].xAvg * canvas.width;
-            const y2 = pinchCenters[1].yAvg * canvas.height;
-            const distance = Math.hypot(pinchCenters[0].xAvg - pinchCenters[1].xAvg, pinchCenters[0].yAvg -
-              pinchCenters[1].yAvg);
-            const dx = x2 - x1;
-            const dy = y2 - y1;
-            const angle = Math.abs(Math.atan2(dy, dx) / Math.PI);
-            const centerX = (x1 + x2) / 2;
-            const centerY = (y1 + y2) / 2;
-            const amplitude = Math.abs(1 - (pinchCenters[0].yAvg + pinchCenters[1].yAvg) / 2);
-            if (pinchCenters[0].pinched && pinchCenters[1].pinched) {
-              ctx.strokeStyle = `rgba(0,${255*amplitude},0,0.7)`;
-              if (window.max) window.max.outlet('gate', 1);
-            } else {
-              ctx.strokeStyle = `rgba(${255*amplitude},0,0,0.7)`;
-              if (window.max) window.max.outlet('gate', 0);
-            }
-            ctx.beginPath();
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-            ctx.lineWidth = 20;
-            ctx.stroke();
-            if (window.max) {
-              window.max.outlet('distance', distance);
-              window.max.outlet('amplitude', amplitude);
-              window.max.outlet('angle', angle);
-            }
-          } else {
-            if (window.max) window.max.outlet('gate', 0);
-          }
-          for (let point of points) {
-            const x = point.x * canvas.width;
-            const y = point.y * canvas.height;
-            ctx.beginPath();
-            ctx.arc(x, y, 8, 0, 2 * Math.PI);
-            ctx.fillStyle = point.fillStyle;
-            ctx.fill();
-          }
+      // not ready
+      if (!handLandmarker || video.readyState !== 4) {
+        if (window.max) window.max.outlet('gate', 0);
+        ctx.restore();
+        requestAnimationFrame(predict);
+        return;
+      }
+
+      const results = handLandmarker.detectForVideo(video, performance.now());
+
+      // ready but no hands
+      if (results.landmarks.length === 0) {
+        if (window.max) window.max.outlet('gate', 0);
+        ctx.restore();
+        requestAnimationFrame(predict);
+        return;
+      }
+
+      // ready and at least one hand, so draw thumb/index dots
+      const pinchCenters = [];
+      const points = [];
+
+      for (let result of results.landmarks) {
+        const thumb = result[4]
+        const index = result[8];
+        const pinchDistance = Math.hypot(thumb.x - index.x, thumb.y - index.y);
+        let pinched = false;
+        if (pinchDistance < 0.08) {
+          thumb.fillStyle = 'green';
+          index.fillStyle = 'green';
+          pinched = true;
+        } else {
+          thumb.fillStyle = 'red';
+          index.fillStyle = 'red';
+        }
+        const xAvg = (thumb.x + index.x) / 2;
+        const yAvg = (thumb.y + index.y) / 2;
+        const pinchCenter = {
+          xAvg,
+          yAvg,
+          pinched
+        };
+        pinchCenters.push(pinchCenter);
+        points.push(thumb);
+        points.push(index);
+      }
+
+
+      // draw points on index/thumb
+      for (let point of points) {
+        const x = point.x * canvas.width;
+        const y = point.y * canvas.height;
+        ctx.beginPath();
+        ctx.arc(x, y, 8, 0, 2 * Math.PI);
+        ctx.fillStyle = point.fillStyle;
+        ctx.fill();
+      }
+
+      // only one hand
+      if (pinchCenters.length !== 2) {
+        if (window.max) window.max.outlet('gate', 0);
+        ctx.restore();
+        requestAnimationFrame(predict);
+        return;
+      }
+
+      // both hands! draw line and check for pinches
+      const x1 = pinchCenters[0].xAvg * canvas.width;
+      const y1 = pinchCenters[0].yAvg * canvas.height;
+      const x2 = pinchCenters[1].xAvg * canvas.width;
+      const y2 = pinchCenters[1].yAvg * canvas.height;
+      const distance = Math.hypot(pinchCenters[0].xAvg - pinchCenters[1].xAvg, pinchCenters[0].yAvg -
+        pinchCenters[1].yAvg);
+      const dx = x2 - x1;
+      const dy = y2 - y1;
+      const angle = Math.abs(Math.atan2(dy, dx) / Math.PI);
+      const amplitude = Math.abs(1 - (pinchCenters[0].yAvg + pinchCenters[1].yAvg) / 2);
+
+      if (pinchCenters[0].pinched && pinchCenters[1].pinched) {
+        ctx.strokeStyle = `rgba(0,${255*amplitude},0,0.7)`;
+        if (window.max) {
+          window.max.outlet('gate', 1);
+          window.max.outlet('distance', distance);
+          window.max.outlet('amplitude', amplitude);
+          window.max.outlet('angle', angle);
+        }
+      } else {
+        ctx.strokeStyle = `rgba(${255*amplitude},0,0,0.7)`;
+        if (window.max) {
+          window.max.outlet('gate', 0);
+          window.max.outlet('distance', distance);
+          window.max.outlet('amplitude', amplitude);
+          window.max.outlet('angle', angle);
         }
       }
+
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.lineWidth = 20;
+      ctx.stroke();
+
       ctx.restore();
       requestAnimationFrame(predict);
     }
