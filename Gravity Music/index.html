@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="p5.min.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    function setup() {
+      createCanvas(400, 400);
+    }
+
+    function draw() {
+      background(100);
+    }
+
+    class Pendulum {
+      constructor() {
+        this.r = ?? ;
+        this.angle = ? ;
+        this.angleVelocity = ?? ;
+        this.angleAcceleration = ?? ;
+      }
+      update() {
+        let gravity = 0.4;
+        this.angleAcceleration = -1 * gravity * sin(this.angle) / this.r;
+        this.angleVelocity += this.angleAcceleration;
+        this.angle += this.angleVelocity;
+      }
+    }
+  </script>
+
+</body>
+
+</html>

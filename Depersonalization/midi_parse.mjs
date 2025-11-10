@@ -4,7 +4,8 @@ import { existsSync } from 'fs';
 import * as Max from 'max-api';
 import * as midiManager from 'midi-file';
 
-Max.outlet('seq', 'clear');
+Max.outlet('seq', 'play', 0);
+Max.outlet('seq', 'clear', 'all');
 
 const midiFolderGithub = './midi_files';
 const midiFolderStorage = '../storage/depersonalization_midi';
