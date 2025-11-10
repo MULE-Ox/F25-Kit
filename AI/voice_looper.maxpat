@@ -15,6 +15,143 @@
 		"gridsize" : [ 15.0, 15.0 ],
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-73",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 151.0, 1392.0, 150.0, 20.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 20.0, 716.0, 150.0, 20.0 ],
+					"text" : "basic player"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-70",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 239.0, 1214.0, 150.0, 20.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 108.0, 580.0, 150.0, 20.0 ],
+					"text" : "can also drag-and-drop"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-66",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 188.0, 1188.0, 150.0, 20.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 57.0, 554.0, 150.0, 20.0 ],
+					"text" : "load new file"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-61",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 188.0, 1213.0, 49.0, 22.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 57.0, 579.0, 49.0, 22.0 ],
+					"text" : "append"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-48",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 151.0, 1213.0, 35.0, 22.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 20.0, 579.0, 35.0, 22.0 ],
+					"text" : "clear"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"basictuning" : 440,
+					"clipheight" : 108.0,
+					"data" : 					{
+						"clips" : [ 							{
+								"absolutepath" : "/Users/sheffie/Desktop/Tree Project/Samples/Processed/Reverse/tree_grain_test R.wav",
+								"filename" : "tree_grain_test R.wav",
+								"filekind" : "audiofile",
+								"id" : "u324003624",
+								"loop" : 0,
+								"content_state" : 								{
+
+								}
+
+							}
+ ]
+					}
+,
+					"followglobaltempo" : 0,
+					"formantcorrection" : 0,
+					"id" : "obj-7",
+					"maxclass" : "playlist~",
+					"mode" : "basic",
+					"numinlets" : 1,
+					"numoutlets" : 5,
+					"originallength" : [ 0.0, "ticks" ],
+					"originaltempo" : 120.0,
+					"outlettype" : [ "signal", "signal", "signal", "", "dictionary" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 151.0, 1279.0, 467.0, 109.0 ],
+					"pitchcorrection" : 0,
+					"presentation" : 1,
+					"presentation_rect" : [ 20.0, 603.0, 467.0, 109.0 ],
+					"quality" : "basic",
+					"saved_attribute_attributes" : 					{
+						"candicane2" : 						{
+							"expression" : ""
+						}
+,
+						"candicane3" : 						{
+							"expression" : ""
+						}
+,
+						"candicane4" : 						{
+							"expression" : ""
+						}
+,
+						"candicane5" : 						{
+							"expression" : ""
+						}
+,
+						"candicane6" : 						{
+							"expression" : ""
+						}
+,
+						"candicane7" : 						{
+							"expression" : ""
+						}
+,
+						"candicane8" : 						{
+							"expression" : ""
+						}
+
+					}
+,
+					"timestretch" : [ 0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-164",
 					"maxclass" : "button",
 					"numinlets" : 1,
@@ -528,6 +665,7 @@
 , 			{
 				"box" : 				{
 					"format" : 6,
+					"hidden" : 1,
 					"id" : "obj-107",
 					"maxclass" : "flonum",
 					"maximum" : 4.0,
@@ -2135,6 +2273,7 @@
 , 			{
 				"box" : 				{
 					"buffername" : "grain1",
+					"chanoffset" : 0,
 					"id" : "obj-63",
 					"maxclass" : "waveform~",
 					"numinlets" : 5,
@@ -2261,6 +2400,7 @@
 , 			{
 				"box" : 				{
 					"format" : 6,
+					"hidden" : 1,
 					"id" : "obj-5",
 					"maxclass" : "flonum",
 					"maximum" : 4.0,
@@ -3534,6 +3674,13 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-7", 0 ],
+					"source" : [ "obj-48", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-59", 0 ],
 					"source" : [ "obj-49", 0 ]
 				}
@@ -3597,6 +3744,13 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-7", 0 ],
+					"source" : [ "obj-61", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-118", 0 ],
 					"source" : [ "obj-62", 1 ]
 				}
@@ -3620,6 +3774,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-52", 0 ],
 					"source" : [ "obj-67", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-40", 0 ],
+					"source" : [ "obj-7", 0 ]
 				}
 
 			}
@@ -3857,6 +4018,13 @@
 				"bootpath" : "~/GitHub/MULE-Ox/F25-Kit/AI",
 				"patcherrelativepath" : ".",
 				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "tree_grain_test R.wav",
+				"bootpath" : "~/Desktop/Tree Project/Samples/Processed/Reverse",
+				"patcherrelativepath" : "../../../../Desktop/Tree Project/Samples/Processed/Reverse",
+				"type" : "WAVE",
 				"implicit" : 1
 			}
  ],
