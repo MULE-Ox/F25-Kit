@@ -1,0 +1,4 @@
+CliX
+Ge Wang
+
+In this piece, human operators type to make sounds, while their machines synthesize, synchronize, and spatialize the audio. Every key on the computer keyboard (upper/lower-case letters, numbers, symbols) is mapped to a distinct pitch (using the key's ASCII representation) and when pressed, emits a clicking sound that is synchronized in time to a common pulse. A (human) conductor coordinates frequency range, texture, movement, and timing.
