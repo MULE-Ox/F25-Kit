@@ -1,6 +1,6 @@
 0. Make sure your laptop's system sound is set to use the MiniFuse
-1. Open a command prompt: Terminal on Mac, Windows Terminal on Windows
-2. Change to the directory that holds the Clix files: cd ~/Documents/GitHub/MULE-Ox/F25-Kit/clix
+1. Right-click the clix folder and, if available, choose "New Terminal at Folder" (Mac) or "Open in Terminal" (Windows).
+2. If you don't see that option on Windows, copy the folder, open Terminal from the search menu (or Command Prompt or Powershell), type cd, then space, then paste. Then hit return.
 3. Run the following command: ls
 4. You should see a list of files with "clix" in the name
 5. Run the following command: chuck clix.ck
