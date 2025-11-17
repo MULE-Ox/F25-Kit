@@ -37,10 +37,9 @@ for (const [i, file] of midiFileNamesGithub.entries()) {
     let absTicks = 0;
     for (const e of buffer) {
       absTicks += e.deltaTime;
-      if (e.type === 'noteOn' || e.type === 'noteOff') {
+      if (e.type === 'noteOn') {
         const relTime = absTicks / totalTicks;
-        const velocity = e.type === 'noteOff' ? 0 : e.velocity;
-        Max.outlet('seq', 'add', i + 1, relTime, e.noteNumber, velocity);
+        Max.outlet('seq', 'add', i + 1, relTime, e.noteNumber, e.velocity);
       }
     }
   } catch (err) {
@@ -69,16 +68,15 @@ for (const [i, file] of midiFileNamesStorage.entries()) {
     let absTicks = 0;
     for (const e of buffer) {
       absTicks += e.deltaTime;
-      if (e.type === 'noteOn' || e.type === 'noteOff') {
+      if (e.type === 'noteOn') {
         const relTime = absTicks / totalTicks;
-        const velocity = e.type === 'noteOff' ? 0 : e.velocity;
         Max.outlet(
           'seq',
           'add',
           offset + i + 1,
           relTime,
           e.noteNumber,
-          velocity
+          e.velocity
         );
       }
     }
