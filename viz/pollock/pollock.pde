@@ -17,7 +17,7 @@ float TIME_INCREMENT = 0.03;
 
 // scale
 float SIZE_NOISE_AMP = 5*scaler;
-float STEP_SCALE = 10;
+float STEP_SCALE = 50;
 float WIDTH_MIN = 0.4*scaler;
 float WIDTH_MAX = 0.6*scaler;
 float STROKE_WEIGHT = scaler*0.5;
@@ -29,18 +29,18 @@ IPs ips = new IPs();
 String[] perfs = {
   ips.leo,
   ips.sam,
-  ips.will,
-  ips.katie,
-  ips.henry,
-  ips.george,
-  ips.isa,
   ips.laura,
-  ips.eric,
-  ips.zara,
   ips.gabe,
-  ips.brandon,
+  ips.katie,
+  ips.george,
+  ips.gail,
   ips.nash,
-  ips.gail
+  ips.henry,
+  ips.will,
+  ips.eric,
+  ips.brandon,
+  ips.isa,
+  ips.zara
 };
 
 String[] testPerfs = {
@@ -95,6 +95,9 @@ void setup() {
 }
 
 void draw() {
+  noStroke();
+  fill(0, 0, 0, 5);
+  rect(0, 0, width, height);
   for (Drip i : drips.values()) {
     i.draw();
     i.move();

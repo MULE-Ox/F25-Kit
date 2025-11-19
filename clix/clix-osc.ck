@@ -71,8 +71,8 @@ float velocity;
 spork ~ mouse( MOUSE );
 spork ~ clock();
 
-// OscSend send;
-// send.setHost("192.168.0.2", 6450); // Eric's IP
+OscSend send;
+send.setHost("192.168.0.2", 6450); // Eric's IP
 
 // time-loop
 while( true )
@@ -116,8 +116,8 @@ while( true )
         e.keyOn();
 
         // transmit velocity info
-        // send.startMsg( "/velocity", "f" );
-        // velocity => send.addFloat;
+        send.startMsg( "/velocity", "f" );
+        velocity => send.addFloat;
 
         // advance time
         T-2::ms => now;
