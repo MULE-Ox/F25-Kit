@@ -48,7 +48,7 @@ for (const [i, file] of midiFileNamesGithub.entries()) {
 }
 
 Max.outlet('umenu', 'clear');
-Max.outlet('umenu', 'append', ' --- ');
+Max.outlet('umenu', 'append', ' - stop - ');
 midiFileNamesGithub.forEach((item) => {
   Max.outlet('umenu', 'append', item);
 });
