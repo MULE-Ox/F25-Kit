@@ -1,8 +1,14 @@
-boolean testing = false;
+boolean testing = true;
+boolean sendSpout = false;
+
+int[] colorRange = {0, 3};
 
 import oscP5.*;
 import netP5.*;
 OscP5 oscP5;
+
+import spout.*;
+Spout spout;
 
 import java.util.HashMap;
 
@@ -10,17 +16,16 @@ float scaler = 4;
 float overlap = 2;
 
 // do not scale
-float FLOW_RATE_SCALE = 0.12;
-float FLOW_RATE_MAX = 1.11;
-float SIZE_NOISE_SCALE = 10;
+float FLOW_RATE_SCALE = 1; //0.12
+float FLOW_RATE_MAX = 1; // 1.11
+float SIZE_NOISE_SCALE = 5; // 10
 float TIME_INCREMENT = 0.03;
 
 // scale
 float SIZE_NOISE_AMP = 5*scaler;
-float STEP_SCALE = 50;
-float WIDTH_MIN = 0.4*scaler;
-float WIDTH_MAX = 0.6*scaler;
-float STROKE_WEIGHT = scaler*0.5;
+float STEP_SCALE = 2*scaler;
+float WIDTH_MIN = 0.2*scaler;
+float WIDTH_MAX = 0.4*scaler;
 
 color[] colors = new color[6];
 
@@ -54,7 +59,7 @@ String[] testPerfs = {
   "/nash",
   "/henry",
   "/will",
-   "/eric",
+  "/eric",
   "/brandon",
   "/isa",
   "/zara"
@@ -69,7 +74,6 @@ void setup() {
   size(4752/4, 1584/4);
   oscP5 = new OscP5(this, 6450);
 
-  // background(183, 166, 131);
   background(0);
   color red = color(255, 50, 50);
   color blue = color(100, 100, 255);
@@ -92,34 +96,47 @@ void setup() {
       testRegions.put(testPerfs[i], new Region(min, max));
     }
   }
+  if (sendSpout) {
+    spout = new Spout(this);
+    spout.setSenderName("Heavy Air");
+  }
 }
 
 void draw() {
   noStroke();
-  fill(0, 0, 0, 5);
-  rect(0, 0, width, height);
   for (Drip i : drips.values()) {
     i.draw();
     i.move();
   }
+  if (sendSpout) spout.sendTexture();
 }
 
-void mousePressed() {
-  //if (testing) {
-  //  Drip newDrip = new Drip(mouseX, mouseY);
-  //}
+void keyPressed() {
+  if (testing) {
+    int randomIndex = floor(random(testPerfs.length));
+    Region currentRegion = testRegions.get(testPerfs[randomIndex]);
+    float randomX = random(currentRegion.min, currentRegion.max);
+    float randomY = random(height);
+    Drip newDrip = new Drip(randomX, randomY, random(1));
+    drips.put(testPerfs[randomIndex], newDrip);
+  }
 }
 
 void oscEvent(OscMessage theOscMessage) {
   String address = theOscMessage.address().substring(1);
   String addrPattern = theOscMessage.addrPattern();
-  if (testing) {
+  println(addrPattern);
+  if (addrPattern.equals("/dripRange")) {
+    println("DR");
+    colorRange[0] = theOscMessage.get(0).intValue();
+    colorRange[1] = theOscMessage.get(1).intValue();
+  }
+  else if (testing) {
     Region currentRegion = testRegions.get(addrPattern);
     float randomX = random(currentRegion.min, currentRegion.max);
     float randomY = random(height);
     Drip newDrip = new Drip(randomX, randomY, 1);
     drips.put(addrPattern, newDrip);
-    println(drips);
   }
   else {
     Region currentRegion = perfRegions.get(address);
@@ -145,7 +162,7 @@ class Drip {
     offset = random(1000);
     t = 0;
     scale = STEP_SCALE*v;
-    c = floor(random(colors.length));
+    c = floor(random(colorRange[0], colorRange[1]));
     w = random(WIDTH_MIN, WIDTH_MAX);
   }
   
@@ -155,8 +172,6 @@ class Drip {
       pushMatrix();
       translate(xy.x, xy.y);
       rotate(noise(t)*TWO_PI);
-      stroke(red(colors[c]), green(colors[c]), blue(colors[c]), 180);
-      strokeWeight(STROKE_WEIGHT);
       fill(colors[c]);
       ellipse(
         0,
