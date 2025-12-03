@@ -65,7 +65,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 1641.0, 1192.0, 158.0, 22.0 ],
-					"text" : "udpsend 10.10.100.27 8004"
+					"text" : "udpsend 10.10.100.27 8003"
 				}
 
 			}
@@ -1139,8 +1139,6 @@
 					"saved_object_attributes" : 					{
 						"autostart" : 1,
 						"defer" : 0,
-						"node_bin_path" : "",
-						"npm_bin_path" : "",
 						"watch" : 0
 					}
 ,
