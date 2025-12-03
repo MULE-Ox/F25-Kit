@@ -208,7 +208,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 826.0, 507.0, 97.0, 22.0 ],
-					"text" : "udpreceive 8003"
+					"text" : "udpreceive 8009"
 				}
 
 			}
@@ -1004,6 +1004,8 @@
 					"saved_object_attributes" : 					{
 						"autostart" : 1,
 						"defer" : 0,
+						"node_bin_path" : "",
+						"npm_bin_path" : "",
 						"watch" : 0
 					}
 ,

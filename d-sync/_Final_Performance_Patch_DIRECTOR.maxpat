@@ -641,8 +641,8 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 923.0, 593.0, 171.0, 22.0 ],
-					"text" : "udpsend 192.168.86.255 8009"
+					"patching_rect" : [ 923.0, 593.0, 165.0, 22.0 ],
+					"text" : "udpsend 192.168.0.255 8009"
 				}
 
 			}
@@ -669,7 +669,7 @@
 					"patching_rect" : [ 826.0, 628.0, 258.0, 33.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 56.0, 317.0, 176.0, 33.0 ],
-					"text" : "0:34"
+					"text" : "0:11"
 				}
 
 			}
