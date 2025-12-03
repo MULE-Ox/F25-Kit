@@ -32,7 +32,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 1641.0, 1192.0, 158.0, 22.0 ],
-					"text" : "udpsend 10.10.100.27 8003"
+					"text" : "udpsend 10.10.100.27 8004"
 				}
 
 			}
@@ -642,7 +642,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 923.0, 593.0, 171.0, 22.0 ],
-					"text" : "udpsend 192.168.86.255 8003"
+					"text" : "udpsend 192.168.86.255 8009"
 				}
 
 			}
@@ -669,7 +669,7 @@
 					"patching_rect" : [ 826.0, 628.0, 258.0, 33.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 56.0, 317.0, 176.0, 33.0 ],
-					"text" : "0:00"
+					"text" : "0:34"
 				}
 
 			}
