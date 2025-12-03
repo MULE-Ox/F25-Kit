@@ -72,7 +72,7 @@ spork ~ mouse( MOUSE );
 spork ~ clock();
 
 OscSend send;
-send.setHost("192.168.0.2", 6450); // Eric's IP
+send.setHost("10.10.100.27", 8444); // XR's IP
 
 // time-loop
 while( true )
